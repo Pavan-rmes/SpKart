@@ -1,0 +1,37 @@
+.navBar{
+  display: flex;
+  column-gap: 5%;
+  margin:50px;
+  align-items: center;
+}
+.catagory{
+  display: flex;
+  align-items: flex-end;
+}
+p{
+  margin: 0;
+}
+
+.siteName{
+  font-size: xx-large;
+}
+
+.home{
+  font-size: x-large;
+}
+.shop{
+  font-size: x-large;
+}
+.searchBar{
+  width:20%;
+  height:30px;
+  font-size: large;
+}
+
+.aboutContent{
+  padding:5% 30% 5%;
+  font-size: 50px;
+  background-color: gray;
+  color:white;
+  font-weight: 600;
+}
