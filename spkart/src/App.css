@@ -40,11 +40,27 @@ p{
 .products{
   display: flex;
   margin: 5%;
+  padding: 2%;
+  row-gap: 10px;
   column-gap: 2%;
   flex-wrap: wrap;
+  background-color: antiquewhite;
 }
+.product{
+  width: 320px;
+  background-color: azure;
+  padding: 3%;
+  padding-bottom: 5%;
+}
+
+.productImage{
+  width: 90%;
+  height: 90%;
+}
+
 .catagoryImages{
   display: grid;
   grid-template-columns: auto auto;
-  column-gap:1%;
+  row-gap: 30px;
+  column-gap:5%;
 }

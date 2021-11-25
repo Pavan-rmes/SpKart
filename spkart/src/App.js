@@ -31,7 +31,7 @@ function Product({content}){
         <div className="catagoryImages">
           {content.images.map((image,index)=>{return(
             <div>
-              <img src={image} />
+              <img className="productImage" src={image} />
               <p>{content.aboutimg[index]}</p>
             </div>
           )})}
