@@ -2,6 +2,7 @@ import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import { Catgory } from './Catgory';
+import IconButton from '@mui/material/IconButton';
 
 export function Nav() {
   return (
@@ -17,9 +18,11 @@ export function Nav() {
         <Catgory></Catgory>
       </div>
       <div>
+      <IconButton aria-label="delete">
         <Badge badgeContent={4} color="primary">
           <LocalMallOutlinedIcon />
         </Badge>
+      </IconButton>
 
       </div>
     </div>
