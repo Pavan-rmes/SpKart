@@ -2,76 +2,136 @@ import './App.css';
 import * as React from 'react';
 import { About } from './About';
 import { Nav } from './Nav';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 
 function App() {
+  const [cart,setcart] = React.useState(0)
+  const [clickCart,setClickCart]= React.useState(false)
+  console.log(clickCart)
   return (
-    <div className="App">
-      <navigator>
-        <Nav />
-        <hr></hr>
-      </navigator>
-      <About />
-      <div className="products">
-        {contents.map((content)=><Product content = {content} />)}
-      </div>
+    <div>
+        <div>
+          
+          <Nav cart={cart} setcart={setcart} clickCart={clickCart} setClickCart={setClickCart} />
+          <hr></hr>
+        </div>
+        <div className="App">
+        
+        <About />
+        <div className="products">
+          {products.map((product)=><Product content={product} cart={cart} setcart={setcart} />)}
+        </div>
+        </div>
     </div>
   );
 }
 
-function Product({content}){
+function Product({content,cart,setcart}){
+  const [add,setAdd] =React.useState(false)
+  console.log(content)
+  let addStyle
+  function addClick(){
+    if(add === false){
+      setcart(cart +1)
+    }
+    setAdd(true)
+  }
+  if(add === true){
+    addStyle = {cursor:"auto",backgroundColor:"gray",color:"black"}
+  }
+
   return(
     <div className="product">
-      <div>
-        <h3>{content.banner}</h3>
-        <div className="catagoryImages">
-          {content.images.map((image,index)=>{return(
-            <div>
-              <img className="productImage" src={image} />
-              <p>{content.aboutimg[index]}</p>
-            </div>
-          )})}
+      <div style={{textAlign:"center"}}>
+        <img className="productImage" src={content.img} />
+      </div>
+      <div className="productInfo">
+        <h4 style={{fontWeight:"700",fontFamily:"Arial, Helvetica, sans-serif"}}>{content.name}</h4>
+        <p >{content.star}</p>
+        {content.sale===true?<div>
+          <h2 style={{fontSize:"15px",display:"inline"}}><del><span>&#8377;</span>{content.oldprice}</del></h2>
+          <h2 style={{color:"red",display:"inline"}}><span>&#8377;</span>{content.price}</h2>
+        </div>:
+        <div>
+          <h2 style={{color:"red",display:"inline"}}><span>&#8377;</span>{content.price}</h2>
+        </div>}
+        <div className="addToCart" style={addStyle} onClick={()=>addClick()}>
+          <p>ADD</p>
         </div>
       </div>
+      
+
+      
     </div>
   )
 }
 export default App;
 
-const contents = [
-  {banner:"Upgrade your home | SpKart Brands & more",
-    images:["https://images-eu.ssl-images-amazon.com/images/G/31/home_private_label/moritika/week27gw/xcm_banners_tvs_186x116-product-badge-4qqt8_186x116_in-en._SY116_CB663888093_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/home_private_label/moritika/week27gw/xcm_banners_la_186x116_186x116_in-en._SY116_CB663888095_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/home_private_label/moritika/week27gw/xcm_banners_furn_186x116_372x232_in-en._SY116_CB663888090_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/home_private_label/moritika/week27gw/xcm_banners_kitchen_186x116_186x116_in-en._SY116_CB663888093_.jpg"],
-    aboutimg:["smart LED TVs","Appliances","Furniture","Kitchen Products"]            
-  },
-  {
-    banner:"Top rated, premium quality | SpKart Brands & more",
-    images:["https://images-eu.ssl-images-amazon.com/images/G/31/img20/AmazonBrands/GW/QC/Home/bedsheet_B06Y5GF9SF_Asins_186x116._SY116_CB409842842_.jpg",
-             "https://images-eu.ssl-images-amazon.com/images/G/31/home_private_label/moritika/pbbaupbgw/xcm_banners_furniture_186x116_186x116_in-en._SY116_CB666250402_.jpg",
-             "https://images-eu.ssl-images-amazon.com/images/G/31/img20/AmazonBrands/GWTransition/2-4_186x116._SY116_CB433910795_.jpg",
-             "https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2020/GatewayNK/PC/spb_186x116._SY116_CB433889053_.jpg"],
-    aboutimg:["Home Products","Furniture","Daily Essentials","Clothing Essentials"]
-  },
-  {
-    banner:"Top picks for your home",
-    images:["https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg"],
-    aboutimg:["ACs","Refrigerators","MicroWaves","Washing Machines"]
-  },
-  {
-    banner:"Revamp your home in style",
-    images:["https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2021/GW/MSO/April/372x232_1_Low._SY116_CB670263840_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2021/GW/MSO/April/372x232_2_Low._SY116_CB670263840_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2021/GW/MSO/April/372x232_3_Low._SY116_CB670263840_.jpg",
-            "https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2021/GW/MSO/April/372x232_4_Low._SY116_CB670263840_.jpg"],
-    aboutimg:["BedSheets Curtains","Home Decarations","Home Storage","Lightning Solutions"]
-  }]
+const products=
+  [
+    {
+      name:"NIBOSI",
+      img:"https://m.media-amazon.com/images/I/71JExAGyjuL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:true,
+      oldprice:"2,500",
+      price:"1,599"
+    },
+    {
+      name:"TIMEWEAR",
+      img:"https://m.media-amazon.com/images/I/71BaB0PSPOL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐",
+      sale:true,
+      oldprice:"1,300",
+      price:"379"
+    },
+    {
+      name:"TIMEWEAR",
+      img:"https://m.media-amazon.com/images/I/81nj6IlZpVL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:false,
+      oldprice:"1,799",
+      price:"339"
+    },
+    {
+      name:"V2A",
+      img:"https://m.media-amazon.com/images/I/51OUMrOSPWL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:true,
+      oldprice:"2,490",
+      price:"660"
+    },
+    {
+      name:"TIMEX",
+      img:"https://m.media-amazon.com/images/I/71Kx6rgmlRS._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:false,
+      oldprice:"1,595",
+      price:"1095"
+    },
+    {
+      name:"REDUX",
+      img:"https://m.media-amazon.com/images/I/81BDpSIwu3L._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:false,
+      oldprice:"2,199",
+      price:"399"
+    },
+    {
+      name:"TIMEX",
+      img:"https://m.media-amazon.com/images/I/71uYLvTxsQL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:false,
+      oldprice:"1,595",
+      price:"1,095"
+    },
+    {
+      name:"Acnos",
+      img:"https://m.media-amazon.com/images/I/41EjE3W0jgL._AC_UL480_FMwebp_QL65_.jpg",
+      star:"⭐⭐⭐⭐",
+      sale:true,
+      oldprice:"2,499",
+      price:"399"
+    }
+  ]
+
 

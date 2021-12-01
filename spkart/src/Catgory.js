@@ -18,7 +18,7 @@ export function Catgory() {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div>
+    <div className="filter">
       <ArrowDropDownIcon onClick={handleClick} />
       <Popover
         id={id}
@@ -34,10 +34,10 @@ export function Catgory() {
           horizontal: 'center',
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <Typography sx={{ p: 1 }}>All Products</Typography><hr />
+        <Typography className="filterDown" sx={{ p: 1 }}>Latest</Typography>
+        <Typography className="filterDown" sx={{ p: 1 }}>Men</Typography>
+        <Typography className="filterDown" sx={{ p: 1 }}>Women</Typography>
       </Popover>
     </div>
   );
