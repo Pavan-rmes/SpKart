@@ -9,63 +9,107 @@ import { createContext } from 'react';
 export const context = createContext()
 
 function App() {
+
   const [cartValue,setCartValue] = React.useState([])
+
   const [cart,setCart] = React.useState(0)
+
   const [clickCart,setClickCart]= React.useState(false)
+
   const obj = {cart,setCart,cartValue,setCartValue,clickCart,setClickCart}
+
   return (
+
     <context.Provider value={obj}>
+
     <div>
+
         <div>
+
           <Nav />
           <hr></hr>
+
         </div>
+
         <div className="App">
         
         <About />
+
         <div className="products">
+
           {products.map((product,index)=><Product content={product} index={index} />)}
+
         </div>
+
         </div>
+
     </div>
+
     </context.Provider>
   );
 }
 
 function Product({content,index}){
+
   let {cart,setCart,cartValue,setCartValue} =useContext(context)
+
   const [add,setAdd] =React.useState(false)
+
   let addStyle
+
   function addClick(){
+
     if(add === false){
+
       setCartValue([...cartValue,{img:content.img,name:content.name,setAdd:setAdd}])
+
       setCart(cart +1)
+
       content.status =true
+
     }
     setAdd(content.status)
   }
   if(add === true){
+
     addStyle = {cursor:"auto",backgroundColor:"gray",color:"black"}
+
   }
 
   return(
     <div key={index} className="product">
+
       <div style={{textAlign:"center"}}>
+
         <img className="productImage" src={content.img} alt="#" />
+
       </div>
+
       <div className="productInfo">
+
         <h4 style={{fontWeight:"700",fontFamily:"Arial, Helvetica, sans-serif"}}>{content.name}</h4>
+
         <p >{content.star}</p>
+
         {content.sale===true?<div>
+
           <h2 style={{fontSize:"15px",display:"inline"}}><del><span>&#8377;</span>{content.oldprice}</del></h2>
+
           <h2 style={{color:"red",display:"inline"}}><span>&#8377;</span>{content.price}</h2>
+
         </div>:
         <div>
+
           <h2 style={{color:"red",display:"inline"}}><span>&#8377;</span>{content.price}</h2>
+
         </div>}
+
         <div className="addToCart" style={addStyle} onClick={()=>addClick()}>
+
           <p>ADD</p>
+
         </div>
+        
       </div>
       
 
