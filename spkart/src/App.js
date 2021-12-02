@@ -2,47 +2,56 @@ import './App.css';
 import * as React from 'react';
 import { About } from './About';
 import { Nav } from './Nav';
+import { useContext } from 'react';
+import { createContext } from 'react';
+
+
+export const context = createContext()
 
 function App() {
-  const [cart,setcart] = React.useState(0)
+  const [cartValue,setCartValue] = React.useState([])
+  const [cart,setCart] = React.useState(0)
   const [clickCart,setClickCart]= React.useState(false)
-  console.log(clickCart)
+  const obj = {cart,setCart,cartValue,setCartValue,clickCart,setClickCart}
   return (
+    <context.Provider value={obj}>
     <div>
         <div>
-          
-          <Nav cart={cart} setcart={setcart} clickCart={clickCart} setClickCart={setClickCart} />
+          <Nav />
           <hr></hr>
         </div>
         <div className="App">
         
         <About />
         <div className="products">
-          {products.map((product)=><Product content={product} cart={cart} setcart={setcart} />)}
+          {products.map((product,index)=><Product content={product} index={index} />)}
         </div>
         </div>
     </div>
+    </context.Provider>
   );
 }
 
-function Product({content,cart,setcart}){
+function Product({content,index}){
+  let {cart,setCart,cartValue,setCartValue} =useContext(context)
   const [add,setAdd] =React.useState(false)
-  console.log(content)
   let addStyle
   function addClick(){
     if(add === false){
-      setcart(cart +1)
+      setCartValue([...cartValue,{img:content.img,name:content.name,setAdd:setAdd}])
+      setCart(cart +1)
+      content.status =true
     }
-    setAdd(true)
+    setAdd(content.status)
   }
   if(add === true){
     addStyle = {cursor:"auto",backgroundColor:"gray",color:"black"}
   }
 
   return(
-    <div className="product">
+    <div key={index} className="product">
       <div style={{textAlign:"center"}}>
-        <img className="productImage" src={content.img} />
+        <img className="productImage" src={content.img} alt="#" />
       </div>
       <div className="productInfo">
         <h4 style={{fontWeight:"700",fontFamily:"Arial, Helvetica, sans-serif"}}>{content.name}</h4>
@@ -74,7 +83,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:true,
       oldprice:"2,500",
-      price:"1,599"
+      price:"1,599",
+      status:false
     },
     {
       name:"TIMEWEAR",
@@ -82,7 +92,8 @@ const products=
       star:"⭐⭐⭐",
       sale:true,
       oldprice:"1,300",
-      price:"379"
+      price:"379",
+      status:false
     },
     {
       name:"TIMEWEAR",
@@ -90,7 +101,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:false,
       oldprice:"1,799",
-      price:"339"
+      price:"339",
+      status:false
     },
     {
       name:"V2A",
@@ -98,7 +110,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:true,
       oldprice:"2,490",
-      price:"660"
+      price:"660",
+      status:false
     },
     {
       name:"TIMEX",
@@ -106,7 +119,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:false,
       oldprice:"1,595",
-      price:"1095"
+      price:"1095",
+      status:false
     },
     {
       name:"REDUX",
@@ -114,7 +128,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:false,
       oldprice:"2,199",
-      price:"399"
+      price:"399",
+      status:false
     },
     {
       name:"TIMEX",
@@ -122,7 +137,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:false,
       oldprice:"1,595",
-      price:"1,095"
+      price:"1,095",
+      status:false
     },
     {
       name:"Acnos",
@@ -130,7 +146,8 @@ const products=
       star:"⭐⭐⭐⭐",
       sale:true,
       oldprice:"2,499",
-      price:"399"
+      price:"399",
+      status:false
     }
   ]
 
